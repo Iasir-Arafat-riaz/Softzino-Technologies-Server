@@ -42,7 +42,16 @@ async function run() {
       const result = await products.deleteOne(remove);
       res.json(result);
     });
-
+    app.get("/products/:id", async (req, res) => {
+        // console.log(req.params.id);
+        const id = req.params.id;
+        const query = { _id: ObjectId(id) };
+        const result = await products.findOne(query);
+        res.json(result);
+      });
+app.put("/products/:id",async(req,res)=>{
+    console.log(req.params.id)
+})
     //post to database newly register user
     app.post("/users", async (req, res) => {
       const user = req.body;
