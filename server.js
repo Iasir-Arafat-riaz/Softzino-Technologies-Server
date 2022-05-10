@@ -13,13 +13,24 @@ const client = new MongoClient(uri, {
   serverApi: ServerApiVersion.v1,
 });
 
-
 async function run() {
   try {
     await client.connect();
     const database = client.db("Softzino");
     const users = database.collection("allRegisterUsers");
+    const products = database.collection("products");
 
+    //Get all products from database
+    app.get("/products", async (req, res) => {
+      const result = await products.find({}).toArray();
+      res.json(result);
+    });
+
+    app.post("/products",async(req,res)=>{
+        const doc = req.body
+        const result = await products.insertOne(doc)
+        res.json(result)
+    })
     //post to database newly register user
     app.post("/users", async (req, res) => {
       const user = req.body;
@@ -44,7 +55,7 @@ async function run() {
     app.get("/users", async (req, res) => {
       const query = {};
       const cursor = await users.find(query).toArray();
-      res.json(cursor)
+      res.json(cursor);
     });
   } finally {
     //   await client.close();
