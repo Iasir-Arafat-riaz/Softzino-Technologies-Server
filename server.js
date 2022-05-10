@@ -12,8 +12,7 @@ const client = new MongoClient(uri, {
   useUnifiedTopology: true,
   serverApi: ServerApiVersion.v1,
 });
-//user: Softzino
-//pass: cnIfWWvDR9iCmOhS
+
 
 async function run() {
   try {
