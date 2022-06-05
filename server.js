@@ -20,7 +20,50 @@ async function run() {
     const database = client.db("Softzino");
     const users = database.collection("allRegisterUsers");
     const products = database.collection("products");
+    const trainPassengerInfo = database.collection("trainPassengerInfo");
 
+    //START Train Passenger information form task from here
+    //---------->>>>>>>>>
+    //post to database from client side  
+    app.post("/passengers",async(req,res)=>{
+      // console.log(req.body);
+      const bodyData=req.body;
+      const result = await trainPassengerInfo.insertOne(bodyData);
+         res.json(result);
+    })
+     // get request from database for existing passenger search
+    app.get("/passengers", async (req, res) => {
+      const result = await trainPassengerInfo.find({}).toArray();
+      res.json(result);
+    });
+    //<<<<<<<----------------------
+    //End Code Train Passenger information form task
+
+
+
+
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    //first Task Code from here
     //Get all products from database
     app.get("/products", async (req, res) => {
       const result = await products.find({}).toArray();
@@ -43,15 +86,15 @@ async function run() {
       res.json(result);
     });
     app.get("/products/:id", async (req, res) => {
-        // console.log(req.params.id);
-        const id = req.params.id;
-        const query = { _id: ObjectId(id) };
-        const result = await products.findOne(query);
-        res.json(result);
-      });
-app.put("/products/:id",async(req,res)=>{
-    console.log(req.params.id)
-})
+      // console.log(req.params.id);
+      const id = req.params.id;
+      const query = { _id: ObjectId(id) };
+      const result = await products.findOne(query);
+      res.json(result);
+    });
+    app.put("/products/:id", async (req, res) => {
+      console.log(req.params.id);
+    });
     //post to database newly register user
     app.post("/users", async (req, res) => {
       const user = req.body;
